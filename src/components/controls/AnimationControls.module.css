@@ -1,0 +1,291 @@
+.container {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 2px solid #e8ebff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.titleSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #667eea;
+}
+
+.titleSection h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+
+.resetBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetBtn:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.progressSection {
+  margin-bottom: 20px;
+}
+
+.progressInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #666;
+}
+
+.stepCount strong {
+  color: #667eea;
+  font-size: 16px;
+}
+
+.percentage {
+  font-weight: 700;
+  color: #667eea;
+}
+
+.progressBarContainer {
+  position: relative;
+  height: 32px;
+  background: #f0f0f0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.progressBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.progressBar:disabled {
+  cursor: not-allowed;
+}
+
+.progressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 0 12px rgba(102, 126, 234, 0.4);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mainControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.controlBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.primaryBtn {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.primaryBtn:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.primaryBtn:active:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.secondaryBtn {
+  width: 48px;
+  height: 48px;
+  background: #f8f9ff;
+  color: #667eea;
+  border: 2px solid #e8ebff;
+}
+
+.secondaryBtn:hover:not(:disabled) {
+  background: #e8ebff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.secondaryBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.controlBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.speedControls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f9ff;
+  border-radius: 12px;
+}
+
+.speedLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  white-space: nowrap;
+}
+
+.speedButtons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.speedBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+  min-width: 60px;
+  justify-content: center;
+}
+
+.speedBtn:hover {
+  border-color: #667eea;
+  background: #f8f9ff;
+  transform: translateY(-1px);
+}
+
+.speedBtn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.speedIcon {
+  font-size: 16px;
+}
+
+.speedText {
+  font-size: 12px;
+}
+
+.emptyHint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px;
+  background: #fff9e6;
+  border-radius: 8px;
+  border-left: 4px solid #ffc107;
+  font-size: 13px;
+  color: #f57c00;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .mainControls {
+    gap: 8px;
+  }
+  
+  .primaryBtn {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .secondaryBtn {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .speedControls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .speedButtons {
+    width: 100%;
+  }
+  
+  .speedBtn {
+    flex: 1;
+    min-width: 0;
+  }
+}

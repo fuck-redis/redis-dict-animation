@@ -1,0 +1,138 @@
+.navigation {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navContainer {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  height: 70px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.logoIcon {
+  font-size: 32px;
+  animation: pulse 2s infinite;
+}
+
+.logoText h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  line-height: 1.2;
+}
+
+.logoText p {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+  line-height: 1;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.navLink:hover {
+  background: #f5f5f5;
+  color: #333;
+  transform: translateY(-1px);
+}
+
+.navLink.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.navLink.active:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.githubLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #24292e;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.githubLink:hover {
+  background: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 1200px) {
+  .navContainer {
+    padding: 0 20px;
+    gap: 20px;
+  }
+  
+  .navLinks {
+    gap: 4px;
+  }
+  
+  .navLink {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .navLink span {
+    display: none;
+  }
+}
