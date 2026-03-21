@@ -1,0 +1,130 @@
+.gallery {
+  background: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-bottom: 1px solid #333;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.content {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+}
+
+/* 视频列表 */
+.videoList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.videoItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.videoItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.videoItem.active {
+  background: rgba(233, 69, 96, 0.2);
+  border-color: #e94560;
+}
+
+.videoThumbnail {
+  width: 60px;
+  height: 40px;
+  background: linear-gradient(135deg, #333 0%, #444 100%);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.playIcon {
+  font-size: 12px;
+  color: #888;
+}
+
+.videoItem.active .playIcon {
+  color: #e94560;
+}
+
+.videoInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.videoTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.videoDuration {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 主播放器 */
+.mainPlayer {
+  flex: 1;
+  min-width: 0;
+}
+
+.playerHeader {
+  margin-bottom: 16px;
+}
+
+.playerTitle {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #e94560;
+}
+
+.playerDescription {
+  margin: 8px 0 0 0;
+  font-size: 14px;
+  color: #a0a0a0;
+}
+
+.playerWrapper {
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.playerWrapper > div {
+  width: 100% !important;
+}
