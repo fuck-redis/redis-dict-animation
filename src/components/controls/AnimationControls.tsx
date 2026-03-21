@@ -30,7 +30,7 @@ interface AnimationControlsProps {
   onPrevious: () => void;
   onNext: () => void;
   onGoToStep: (step: number) => void;
-  onClearHistory: () => void;
+  onReset: () => void;
   onSetSpeed: (speed: number) => void;
 }
 
@@ -53,7 +53,7 @@ export const AnimationControls: React.FC<AnimationControlsProps> = ({
   onPrevious,
   onNext,
   onGoToStep,
-  onClearHistory,
+  onReset,
   onSetSpeed,
 }) => {
   const progress = totalSteps > 0 ? (currentStep / (totalSteps - 1)) * 100 : 0;
@@ -67,11 +67,11 @@ export const AnimationControls: React.FC<AnimationControlsProps> = ({
         </div>
         <button
           className={styles.resetBtn}
-          onClick={onClearHistory}
-          title="清空历史"
+          onClick={onReset}
+          title="重置字典 (R)"
         >
           <RotateCcw size={16} />
-          清空历史
+          重置 (R)
         </button>
       </div>
       
@@ -92,7 +92,7 @@ export const AnimationControls: React.FC<AnimationControlsProps> = ({
             min="0"
             max={Math.max(0, totalSteps - 1)}
             value={currentStep}
-            onChange={(e) => onGoToStep(parseInt(e.target.value))}
+            onChange={(e) => onGoToStep(parseInt(e.target.value, 10))}
             className={styles.progressBar}
             disabled={totalSteps <= 1}
           />
@@ -113,6 +113,7 @@ export const AnimationControls: React.FC<AnimationControlsProps> = ({
             title="上一步 (←)"
           >
             <SkipBack size={20} />
+            <span className={styles.keyHint}>←</span>
           </button>
           
           {isPlaying ? (
@@ -122,6 +123,7 @@ export const AnimationControls: React.FC<AnimationControlsProps> = ({
               title="暂停 (Space)"
             >
               <Pause size={24} />
+              <span className={styles.keyHint}>Space</span>
             </button>
           ) : (
             <button
@@ -131,6 +133,7 @@ export const AnimationControls: React.FC<AnimationControlsProps> = ({
               title="播放 (Space)"
             >
               <Play size={24} />
+              <span className={styles.keyHint}>Space</span>
             </button>
           )}
           
@@ -141,6 +144,7 @@ export const AnimationControls: React.FC<AnimationControlsProps> = ({
             title="下一步 (→)"
           >
             <SkipForward size={20} />
+            <span className={styles.keyHint}>→</span>
           </button>
         </div>
         

@@ -9,6 +9,7 @@ import { PlaygroundPage } from './pages/PlaygroundPage';
 import { HashFunctionsPage } from './pages/HashFunctionsPage';
 import { RehashPage } from './pages/RehashPage';
 import { PerformancePage } from './pages/PerformancePage';
+import { IteratorPage } from './pages/IteratorPage';
 import { TutorialPage } from './pages/TutorialPage';
 
 export const router = createBrowserRouter([
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: 'performance',
         element: <PerformancePage />,
+      },
+      {
+        path: 'iterator',
+        element: <IteratorPage />,
       },
       {
         path: 'tutorial',

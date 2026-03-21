@@ -71,14 +71,14 @@
 }
 
 .navLink.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
   color: white;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 2px 8px rgba(216, 44, 32, 0.3);
 }
 
 .navLink.active:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 12px rgba(216, 44, 32, 0.4);
 }
 
 .navActions {
@@ -89,22 +89,21 @@
 }
 
 .githubLink {
-  display: flex;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
+  justify-content: center;
   background: #24292e;
   color: white;
   text-decoration: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s;
+  border-radius: 50%;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
 .githubLink:hover {
   background: #000;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 

@@ -10,7 +10,6 @@ import {
   DictStats,
   OperationParams,
   OperationResult,
-  AnimationStep,
 } from '@/types/dict';
 import { getHashFunction } from './hashFunctions';
 
@@ -24,6 +23,53 @@ function createHashTable(size: number): DictHashTable {
     sizemask: size - 1,
     used: 0,
     loadFactor: 0,
+  };
+}
+
+/**
+ * 深拷贝冲突链
+ */
+function cloneEntry(entry: DictEntry | null): DictEntry | null {
+  if (!entry) return null;
+
+  const head: DictEntry = { ...entry, next: null };
+  let source = entry.next;
+  let cursor = head;
+
+  while (source) {
+    const copied: DictEntry = { ...source, next: null };
+    cursor.next = copied;
+    cursor = copied;
+    source = source.next;
+  }
+
+  return head;
+}
+
+/**
+ * 深拷贝哈希表
+ */
+function cloneHashTable(ht: DictHashTable): DictHashTable {
+  return {
+    table: ht.table.map((bucket) => cloneEntry(bucket)),
+    size: ht.size,
+    sizemask: ht.sizemask,
+    used: ht.used,
+    loadFactor: ht.loadFactor,
+  };
+}
+
+/**
+ * 深拷贝Dict状态，用于时间旅行与回放
+ */
+export function cloneDictState(dict: DictState): DictState {
+  return {
+    type: { ...dict.type },
+    ht: [cloneHashTable(dict.ht[0]), cloneHashTable(dict.ht[1])],
+    rehashidx: dict.rehashidx,
+    iterators: dict.iterators,
+    pauseRehash: dict.pauseRehash,
+    stats: { ...dict.stats },
   };
 }
 
@@ -230,6 +276,43 @@ export function dictGet(
   return {
     success: false,
     message: `键 "${key}" 不存在`,
+    stats: { totalOperations: dict.stats.totalOperations },
+  };
+}
+
+/**
+ * 检查键是否存在
+ */
+export function dictExists(
+  dict: DictState,
+  params: OperationParams
+): OperationResult {
+  const { key } = params;
+  if (!key) {
+    return { success: false, message: '键不能为空' };
+  }
+
+  const hash = dict.type.hashFunction(key);
+
+  for (let i = 0; i <= 1; i++) {
+    if (dict.ht[i].size === 0) continue;
+
+    const entry = findEntry(dict.ht[i], key, hash);
+    if (entry) {
+      entry.isHighlighted = true;
+      dict.stats.totalOperations++;
+      return {
+        success: true,
+        message: '键 "' + key + '" 存在',
+        stats: { totalOperations: dict.stats.totalOperations },
+      };
+    }
+  }
+
+  dict.stats.totalOperations++;
+  return {
+    success: false,
+    message: '键 "' + key + '" 不存在',
     stats: { totalOperations: dict.stats.totalOperations },
   };
 }

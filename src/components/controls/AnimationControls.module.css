@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #667eea;
+  color: #D82C20;
 }
 
 .titleSection h3 {
@@ -63,13 +63,13 @@
 }
 
 .stepCount strong {
-  color: #667eea;
+  color: #D82C20;
   font-size: 16px;
 }
 
 .percentage {
   font-weight: 700;
-  color: #667eea;
+  color: #D82C20;
 }
 
 .progressBarContainer {
@@ -100,10 +100,10 @@
   top: 0;
   left: 0;
   height: 100%;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #2f9e44 0%, #2b8a3e 100%);
   transition: width 0.3s ease;
   pointer-events: none;
-  box-shadow: 0 0 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 0 12px rgba(47, 158, 68, 0.35);
 }
 
 .controls {
@@ -123,6 +123,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 2px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -131,16 +133,16 @@
 }
 
 .primaryBtn {
-  width: 64px;
-  height: 64px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #1d7ed6 0%, #155e9c 100%);
   color: white;
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 16px rgba(29, 126, 214, 0.3);
 }
 
 .primaryBtn:hover:not(:disabled) {
   transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(29, 126, 214, 0.4);
 }
 
 .primaryBtn:active:not(:disabled) {
@@ -148,17 +150,17 @@
 }
 
 .secondaryBtn {
-  width: 48px;
-  height: 48px;
-  background: #f8f9ff;
-  color: #667eea;
-  border: 2px solid #e8ebff;
+  width: 54px;
+  height: 54px;
+  background: #f2f8ff;
+  color: #1d7ed6;
+  border: 2px solid #d2e6fb;
 }
 
 .secondaryBtn:hover:not(:disabled) {
-  background: #e8ebff;
+  background: #e3f1ff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 4px 12px rgba(29, 126, 214, 0.2);
 }
 
 .secondaryBtn:active:not(:disabled) {
@@ -168,6 +170,13 @@
 .controlBtn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
+}
+
+.keyHint {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.9;
 }
 
 .speedControls {
@@ -215,16 +224,16 @@
 }
 
 .speedBtn:hover {
-  border-color: #667eea;
-  background: #f8f9ff;
+  border-color: #D82C20;
+  background: #fff5f5;
   transform: translateY(-1px);
 }
 
 .speedBtn.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: #667eea;
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
+  border-color: #D82C20;
   color: white;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 2px 8px rgba(216, 44, 32, 0.3);
 }
 
 .speedIcon {

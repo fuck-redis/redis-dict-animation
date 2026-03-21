@@ -4,6 +4,13 @@
   margin: 0 auto;
 }
 
+/* 内联视频容器 - 用于在文章中嵌入视频 */
+.inlineVideoWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+}
+
 .hero {
   text-align: center;
   padding: 60px 20px;
@@ -47,7 +54,7 @@
 }
 
 .sectionIcon {
-  color: #667eea;
+  color: #D82C20;
 }
 
 .sectionHeader h2 {
@@ -78,7 +85,7 @@
 .list li {
   padding: 12px 16px;
   background: white;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid #D82C20;
   margin-bottom: 8px;
   border-radius: 4px;
   font-size: 15px;
@@ -200,7 +207,7 @@
 }
 
 .nextSection {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
   border-radius: 12px;
   padding: 48px;
   text-align: center;
@@ -224,7 +231,7 @@
   gap: 8px;
   padding: 16px 32px;
   background: white;
-  color: #667eea;
+  color: #D82C20;
   text-decoration: none;
   border-radius: 8px;
   font-size: 18px;

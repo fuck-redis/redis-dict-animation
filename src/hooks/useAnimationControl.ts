@@ -3,13 +3,14 @@
  */
 
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { DictState } from '@/types/dict';
+import { DictState, OperationParams } from '@/types/dict';
+import { cloneDictState } from '@/core/dict';
 
 interface AnimationStep {
   id: number;
   timestamp: number;
   operation: string;
-  params: any;
+  params: OperationParams;
   state: DictState;
   description: string;
 }
@@ -20,11 +21,17 @@ interface AnimationControlReturn {
   currentStep: number;
   
   // 控制方法
-  addStep: (operation: string, params: any, state: DictState, description: string) => void;
+  addStep: (
+    operation: string,
+    params: OperationParams,
+    state: DictState,
+    description: string
+  ) => void;
   goToStep: (step: number) => DictState | null;
   previousStep: () => DictState | null;
   nextStep: () => DictState | null;
   clearHistory: () => void;
+  resetHistory: (state: DictState, description?: string) => void;
   
   // 播放控制
   isPlaying: boolean;
@@ -46,7 +53,7 @@ export function useAnimationControl(initialState: DictState): AnimationControlRe
       timestamp: Date.now(),
       operation: 'init',
       params: {},
-      state: initialState,
+      state: cloneDictState(initialState),
       description: '初始状态',
     },
   ]);
@@ -54,30 +61,44 @@ export function useAnimationControl(initialState: DictState): AnimationControlRe
   const [isPlaying, setIsPlaying] = useState(false);
   const [playSpeed, setPlaySpeed] = useState(1000); // 毫秒
   
-  const playIntervalRef = useRef<number | null>(null);
+  const playIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const currentStepRef = useRef(0);
+
+  useEffect(() => {
+    currentStepRef.current = currentStep;
+  }, [currentStep]);
   
   // 添加新步骤
   const addStep = useCallback(
-    (operation: string, params: any, state: DictState, description: string) => {
-      setHistory(prev => {
-        // 如果当前不在最后一步，删除后面的历史
-        const newHistory = prev.slice(0, currentStep + 1);
-        
-        const newStep: AnimationStep = {
+    (
+      operation: string,
+      params: OperationParams,
+      state: DictState,
+      description: string
+    ) => {
+      const baseStep = currentStepRef.current;
+      const nextStep = baseStep + 1;
+
+      setHistory((prev) => {
+        const cutoff = Math.min(baseStep, prev.length - 1);
+        const newHistory = prev.slice(0, cutoff + 1);
+
+        const newRecord: AnimationStep = {
           id: newHistory.length,
           timestamp: Date.now(),
           operation,
           params,
-          state: JSON.parse(JSON.stringify(state)), // 深拷贝状态
+          state: cloneDictState(state),
           description,
         };
-        
-        return [...newHistory, newStep];
+
+        return [...newHistory, newRecord];
       });
-      
-      setCurrentStep(prev => prev + 1);
+
+      currentStepRef.current = nextStep;
+      setCurrentStep(nextStep);
     },
-    [currentStep]
+    []
   );
   
   // 跳转到指定步骤
@@ -85,6 +106,7 @@ export function useAnimationControl(initialState: DictState): AnimationControlRe
     (step: number): DictState | null => {
       if (step < 0 || step >= history.length) return null;
       
+      currentStepRef.current = step;
       setCurrentStep(step);
       return history[step].state;
     },
@@ -96,6 +118,7 @@ export function useAnimationControl(initialState: DictState): AnimationControlRe
     if (currentStep <= 0) return null;
     
     const newStep = currentStep - 1;
+    currentStepRef.current = newStep;
     setCurrentStep(newStep);
     return history[newStep].state;
   }, [currentStep, history]);
@@ -105,21 +128,50 @@ export function useAnimationControl(initialState: DictState): AnimationControlRe
     if (currentStep >= history.length - 1) return null;
     
     const newStep = currentStep + 1;
+    currentStepRef.current = newStep;
     setCurrentStep(newStep);
     return history[newStep].state;
   }, [currentStep, history]);
   
   // 清空历史
   const clearHistory = useCallback(() => {
-    setHistory([history[0]]); // 保留初始状态
+    const baseStep = history[0];
+    setHistory([
+      {
+        ...baseStep,
+        state: cloneDictState(baseStep.state),
+        timestamp: Date.now(),
+      },
+    ]);
+    currentStepRef.current = 0;
     setCurrentStep(0);
     setIsPlaying(false);
   }, [history]);
+
+  const resetHistory = useCallback(
+    (state: DictState, description: string = '重置字典') => {
+      setHistory([
+        {
+          id: 0,
+          timestamp: Date.now(),
+          operation: 'init',
+          params: {},
+          state: cloneDictState(state),
+          description,
+        },
+      ]);
+      currentStepRef.current = 0;
+      setCurrentStep(0);
+      setIsPlaying(false);
+    },
+    []
+  );
   
   // 播放
   const play = useCallback(() => {
     if (currentStep >= history.length - 1) {
       // 如果已经在最后，从头播放
+      currentStepRef.current = 0;
       setCurrentStep(0);
     }
     setIsPlaying(true);
@@ -147,6 +199,7 @@ export function useAnimationControl(initialState: DictState): AnimationControlRe
           setIsPlaying(false);
           return prev;
         }
+        currentStepRef.current = next;
         return next;
       });
     }, playSpeed);
@@ -170,6 +223,7 @@ export function useAnimationControl(initialState: DictState): AnimationControlRe
     previousStep,
     nextStep,
     clearHistory,
+    resetHistory,
     isPlaying,
     playSpeed,
     play,

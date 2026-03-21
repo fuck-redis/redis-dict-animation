@@ -1,10 +1,14 @@
 /**
  * 哈希函数对比页面
+ * 深入解析Redis如何使用哈希函数实现高效的数据存储
  */
 
 import React, { useState, useMemo } from 'react';
-import { Zap, TrendingUp, Shield, Clock } from 'lucide-react';
+import { Zap, TrendingUp, Shield, Clock, AlertTriangle, CheckCircle, Hash } from 'lucide-react';
 import { HASH_FUNCTIONS, calculateIndexWithSteps } from '@/core/hashFunctions';
+import { HashFunctionVideos } from '@/components/video';
+import { InlineVideo } from '@/components/video/InlineVideo';
+import { HashFunctionOverview, CollisionDemo, HashFloodingAttack, HashCalculationSteps, DistributionUniformityDemo, HashFunctionComparison, SipHashDefenseMechanism, HashSeedGeneration } from '@/remotion/compositions/hash-functions';
 import styles from './HashFunctionsPage.module.css';
 
 export const HashFunctionsPage: React.FC = () => {
@@ -70,20 +74,72 @@ export const HashFunctionsPage: React.FC = () => {
   return (
     <div className={styles.page}>
       <div className={styles.hero}>
-        <Zap className={styles.heroIcon} size={48} />
+        <Hash className={styles.heroIcon} size={48} />
         <h1 className={styles.title}>哈希函数对比实验室</h1>
         <p className={styles.subtitle}>
           深入理解不同哈希函数的性能特征和分布特性
         </p>
       </div>
 
+      {/* 视频演示区域 - 整体概述 */}
+      <HashFunctionVideos />
+
       <div className={styles.content}>
+        {/* 哈希函数基础 */}
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <Zap size={24} />
+            什么是哈希函数？
+          </h2>
+
+          <div className={styles.infoBox}>
+            <p>
+              哈希函数是将任意长度的输入（如字符串键）转换为固定长度输出的函数。
+              在Redis中，哈希函数扮演着至关重要的角色：<strong>它决定了一个键应该存放在哪个桶（bucket）中</strong>。
+            </p>
+          </div>
+
+          {/* 哈希函数工作原理演示 */}
+          <div className={styles.videoInline}>
+            <InlineVideo
+              component={HashFunctionOverview}
+              durationInFrames={1200}
+              width={640}
+              height={360}
+              title="哈希函数工作原理"
+              loop={true}
+            />
+          </div>
+
+          <div className={styles.keyPoints}>
+            <div className={styles.keyPoint}>
+              <CheckCircle size={18} className={styles.checkIcon} />
+              <span><strong>确定性</strong>：相同输入总是产生相同输出</span>
+            </div>
+            <div className={styles.keyPoint}>
+              <CheckCircle size={18} className={styles.checkIcon} />
+              <span><strong>均匀分布</strong>：好的哈希函数将键均匀分布到所有桶</span>
+            </div>
+            <div className={styles.keyPoint}>
+              <CheckCircle size={18} className={styles.checkIcon} />
+              <span><strong>高性能</strong>：计算速度快，延迟低</span>
+            </div>
+          </div>
+        </section>
         {/* 单键测试 */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <Zap size={24} />
             单键哈希测试
           </h2>
+
+          <div className={styles.infoBox}>
+            <p>
+              让我们通过一个具体例子来理解哈希函数的计算过程。
+              输入一个键，观察不同哈希函数如何将其转换为桶索引。
+            </p>
+          </div>
+
           <div className={styles.testPanel}>
             <div className={styles.inputGroup}>
               <label>测试键:</label>
@@ -109,7 +165,7 @@ export const HashFunctionsPage: React.FC = () => {
               </select>
             </div>
           </div>
-          
+
           <div className={styles.results}>
             {hashResults.map((item) => (
               <div key={item.id} className={styles.resultCard}>
@@ -118,7 +174,7 @@ export const HashFunctionsPage: React.FC = () => {
                   <span className={styles.complexity}>{item.complexity}</span>
                 </div>
                 <p className={styles.description}>{item.description}</p>
-                
+
                 <div className={styles.hashSteps}>
                   <div className={styles.hashValue}>
                     <strong>哈希值:</strong>
@@ -129,7 +185,7 @@ export const HashFunctionsPage: React.FC = () => {
                     <code className={styles.indexBadge}>{item.result.index}</code>
                   </div>
                 </div>
-                
+
                 <div className={styles.calculation}>
                   <strong>计算过程:</strong>
                   <code className={styles.formula}>
@@ -139,6 +195,40 @@ export const HashFunctionsPage: React.FC = () => {
               </div>
             ))}
           </div>
+
+          {/* 哈希计算步骤演示 */}
+          <div className={styles.videoInline}>
+            <InlineVideo
+              component={HashCalculationSteps}
+              durationInFrames={1500}
+              width={640}
+              height={360}
+              title="哈希计算步骤演示"
+              loop={true}
+            />
+          </div>
+
+          {/* 哈希冲突演示 */}
+          <div className={styles.videoSection}>
+            <h3 className={styles.videoSectionTitle}>
+              <AlertTriangle size={18} />
+              理解哈希冲突
+            </h3>
+            <p className={styles.videoSectionDesc}>
+              当两个不同的键计算出相同的桶索引时，就会发生哈希冲突。
+              观察下方演示了解Redis如何处理这种情况：
+            </p>
+            <div className={styles.videoInline}>
+              <InlineVideo
+                component={CollisionDemo}
+                durationInFrames={1650}
+                width={640}
+                height={360}
+                title="哈希冲突演示"
+                loop={true}
+              />
+            </div>
+          </div>
         </section>
 
         {/* 分布测试 */}
@@ -147,6 +237,15 @@ export const HashFunctionsPage: React.FC = () => {
             <TrendingUp size={24} />
             分布均匀性测试
           </h2>
+
+          <div className={styles.infoBox}>
+            <p>
+              哈希函数的核心目标是将键<strong>均匀分布</strong>到所有桶中。
+              如果分布不均匀，会导致某些桶过长，查找性能退化。
+              下方测试用大量随机键评估各哈希函数的分布质量。
+            </p>
+          </div>
+
           <div className={styles.testPanel}>
             <div className={styles.inputGroup}>
               <label>生成测试键数量:</label>
@@ -163,13 +262,13 @@ export const HashFunctionsPage: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           {distributionAnalysis && (
             <div className={styles.analysisResults}>
               {distributionAnalysis.map((analysis) => (
                 <div key={analysis.id} className={styles.analysisCard}>
                   <h3>{analysis.name}</h3>
-                  
+
                   <div className={styles.metrics}>
                     <div className={styles.metric}>
                       <span className={styles.metricLabel}>冲突率</span>
@@ -184,7 +283,7 @@ export const HashFunctionsPage: React.FC = () => {
                       <span className={styles.metricValue}>{analysis.maxBucket}</span>
                     </div>
                   </div>
-                  
+
                   <div className={styles.distribution}>
                     {analysis.buckets.map((count, index) => (
                       <div key={index} className={styles.bucket}>
@@ -192,7 +291,7 @@ export const HashFunctionsPage: React.FC = () => {
                           className={styles.bucketBar}
                           style={{
                             height: `${(count / analysis.maxBucket) * 100}%`,
-                            background: count === 0 ? '#e0e0e0' : 
+                            background: count === 0 ? '#e0e0e0' :
                                        count === analysis.maxBucket ? '#f44336' :
                                        count > parseFloat(analysis.avgBucket) ? '#ff9800' : '#4caf50'
                           }}
@@ -206,6 +305,28 @@ export const HashFunctionsPage: React.FC = () => {
               ))}
             </div>
           )}
+
+          <div className={styles.interpretation}>
+            <h4>如何解读图表:</h4>
+            <ul>
+              <li><span className={styles.colorGreen}>绿色</span> - 桶内键数量正常（接近平均值）</li>
+              <li><span className={styles.colorOrange}>橙色</span> - 桶内键数量偏多（高于平均值）</li>
+              <li><span className={styles.colorRed}>红色</span> - 桶内键数量过多（最大值，表示严重不均匀）</li>
+              <li><span className={styles.colorGray}>灰色</span> - 空桶（没有键分布到此处）</li>
+            </ul>
+          </div>
+
+          {/* 分布均匀性演示 */}
+          <div className={styles.videoInline}>
+            <InlineVideo
+              component={DistributionUniformityDemo}
+              durationInFrames={1500}
+              width={640}
+              height={360}
+              title="分布均匀性演示"
+              loop={true}
+            />
+          </div>
         </section>
 
         {/* 特性对比 */}
@@ -257,6 +378,18 @@ export const HashFunctionsPage: React.FC = () => {
               </tbody>
             </table>
           </div>
+
+          {/* 哈希函数对比演示 */}
+          <div className={styles.videoInline}>
+            <InlineVideo
+              component={HashFunctionComparison}
+              durationInFrames={1500}
+              width={640}
+              height={360}
+              title="哈希函数对比演示"
+              loop={true}
+            />
+          </div>
         </section>
 
         {/* 哈希洪水攻击 */}
@@ -265,15 +398,29 @@ export const HashFunctionsPage: React.FC = () => {
             <Shield size={24} />
             哈希洪水攻击防御
           </h2>
+
           <div className={styles.attackDemo}>
-            <div className={styles.infoBox}>
+            <div className={styles.attackBox}>
               <h3>什么是哈希洪水攻击？</h3>
               <p>
                 攻击者构造大量具有相同哈希值的键，使它们全部映射到同一个桶，
-                导致哈希表退化为链表，查找时间从O(1)退化到O(N)。
+                导致哈希表退化为链表，查找时间从<strong>O(1)退化到O(N)</strong>。
+                这是一种针对哈希表结构的DoS（拒绝服务）攻击手段。
               </p>
             </div>
-            
+
+            {/* 攻击演示视频 */}
+            <div className={styles.videoInline}>
+              <InlineVideo
+                component={HashFloodingAttack}
+                durationInFrames={1500}
+                width={640}
+                height={360}
+                title="哈希洪水攻击演示"
+                loop={true}
+              />
+            </div>
+
             <div className={styles.defenseBox}>
               <h3>Redis的防御策略</h3>
               <ul>
@@ -287,6 +434,39 @@ export const HashFunctionsPage: React.FC = () => {
                   <strong>渐进式Rehash:</strong> 即使发生攻击，也能通过rehash恢复性能
                 </li>
               </ul>
+            </div>
+
+            {/* SipHash防御机制演示 */}
+            <div className={styles.videoInline}>
+              <InlineVideo
+                component={SipHashDefenseMechanism}
+                durationInFrames={1500}
+                width={640}
+                height={360}
+                title="SipHash防御机制演示"
+                loop={true}
+              />
+            </div>
+
+            {/* 哈希种子生成演示 */}
+            <div className={styles.videoInline}>
+              <InlineVideo
+                component={HashSeedGeneration}
+                durationInFrames={1500}
+                width={640}
+                height={360}
+                title="哈希种子生成演示"
+                loop={true}
+              />
+            </div>
+
+            <div className={styles.securityNote}>
+              <Shield size={16} />
+              <span>
+                <strong>安全提示:</strong> Redis默认使用SipHash作为哈希函数，
+                这也是为什么Redis能够安全地承受恶意输入。在选择哈希函数时，
+                如果用于安全敏感场景，务必使用抗碰撞的加密哈希函数。
+              </span>
             </div>
           </div>
         </section>

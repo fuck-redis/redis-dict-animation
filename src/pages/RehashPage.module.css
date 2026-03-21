@@ -8,23 +8,23 @@
 .hero {
   text-align: center;
   padding: 60px 32px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
   border-radius: 16px;
   margin-bottom: 32px;
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
-  border: 1px solid rgba(102, 126, 234, 0.1);
+  box-shadow: 0 8px 24px rgba(216, 44, 32, 0.12);
+  border: 1px solid rgba(216, 44, 32, 0.1);
 }
 
 .heroIcon {
-  color: #667eea;
+  color: #D82C20;
   margin-bottom: 20px;
-  filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.2));
+  filter: drop-shadow(0 2px 8px rgba(216, 44, 32, 0.2));
 }
 
 .title {
   font-size: 42px;
   font-weight: 800;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -64,7 +64,37 @@
   color: #333;
   margin: 0 0 28px 0;
   padding-bottom: 16px;
-  border-bottom: 3px solid #667eea;
+  border-bottom: 3px solid #D82C20;
+}
+
+.intro {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+  margin: 0 0 24px 0;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+  border-radius: 8px;
+  border-left: 4px solid #D82C20;
+}
+
+.inlineVideoSection {
+  margin: 28px 0;
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.inlineVideo {
+  display: inline-block;
+}
+
+.videoCaption {
+  margin: 12px 0 0 0;
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
 }
 
 .conceptGrid {
@@ -74,16 +104,16 @@
 }
 
 .conceptCard {
-  background: linear-gradient(135deg, #f8f9ff 0%, #e8ebff 100%);
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
   border-radius: 12px;
   padding: 28px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid #D82C20;
   transition: all 0.3s ease;
 }
 
 .conceptCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 8px 20px rgba(216, 44, 32, 0.15);
 }
 
 .conceptIcon {
@@ -118,7 +148,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -126,12 +156,12 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 2px 8px rgba(216, 44, 32, 0.3);
 }
 
 .btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 16px rgba(216, 44, 32, 0.4);
 }
 
 .btn:active:not(:disabled) {
@@ -144,10 +174,10 @@
 }
 
 .progressSection {
-  background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
   border-radius: 12px;
   padding: 24px;
-  border: 2px solid #e8ebff;
+  border: 2px solid #ffe8e8;
   margin-bottom: 24px;
 }
 
@@ -172,7 +202,7 @@
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #D82C20 0%, #B22618 100%);
   transition: width 0.5s ease;
 }
 
@@ -197,7 +227,7 @@
 .speedControl span {
   font-size: 14px;
   font-weight: 600;
-  color: #667eea;
+  color: #D82C20;
   min-width: 40px;
 }
 
@@ -222,15 +252,15 @@
 .step {
   display: flex;
   gap: 20px;
-  background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
   border-radius: 12px;
   padding: 24px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid #D82C20;
   transition: all 0.3s ease;
 }
 
 .step:hover {
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 6px 20px rgba(216, 44, 32, 0.1);
   transform: translateX(4px);
 }
 
@@ -239,14 +269,14 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 24px;
   font-weight: 700;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(216, 44, 32, 0.3);
 }
 
 .stepContent {
@@ -285,10 +315,10 @@
 }
 
 .strategyCard {
-  background: linear-gradient(135deg, #f8f9ff 0%, #e8ebff 100%);
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
   border-radius: 12px;
   padding: 24px;
-  border-top: 4px solid #667eea;
+  border-top: 4px solid #D82C20;
 }
 
 .strategyCard h3 {
@@ -305,7 +335,7 @@
 }
 
 .strategyCard strong {
-  color: #667eea;
+  color: #D82C20;
 }
 
 .code {
@@ -330,17 +360,17 @@
 }
 
 .perfCard {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
   border-radius: 12px;
   padding: 28px;
   text-align: center;
-  border: 2px solid #e8ebff;
+  border: 2px solid #ffe8e8;
   transition: all 0.3s ease;
 }
 
 .perfCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 8px 20px rgba(216, 44, 32, 0.15);
 }
 
 .perfIcon {

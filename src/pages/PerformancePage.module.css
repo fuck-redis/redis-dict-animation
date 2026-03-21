@@ -8,23 +8,23 @@
 .hero {
   text-align: center;
   padding: 60px 32px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
   border-radius: 16px;
   margin-bottom: 32px;
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
-  border: 1px solid rgba(102, 126, 234, 0.1);
+  box-shadow: 0 8px 24px rgba(216, 44, 32, 0.12);
+  border: 1px solid rgba(216, 44, 32, 0.1);
 }
 
 .heroIcon {
-  color: #667eea;
+  color: #D82C20;
   margin-bottom: 20px;
-  filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.2));
+  filter: drop-shadow(0 2px 8px rgba(216, 44, 32, 0.2));
 }
 
 .title {
   font-size: 42px;
   font-weight: 800;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -64,7 +64,44 @@
   color: #333;
   margin: 0 0 28px 0;
   padding-bottom: 16px;
-  border-bottom: 3px solid #667eea;
+  border-bottom: 3px solid #D82C20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section h2 svg {
+  color: #D82C20;
+}
+
+.intro {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #f8f9ff 0%, #fff5f5 100%);
+  border-radius: 10px;
+  border-left: 4px solid #D82C20;
+}
+
+.intro strong {
+  color: #D82C20;
+}
+
+.keyInsight {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
+  border-radius: 10px;
+  border-left: 4px solid #ff9800;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #666;
+}
+
+.keyInsight strong {
+  color: #e65100;
 }
 
 .statusGrid {
@@ -74,17 +111,17 @@
 }
 
 .statusCard {
-  background: linear-gradient(135deg, #f8f9ff 0%, #e8ebff 100%);
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
   border-radius: 12px;
   padding: 24px;
   text-align: center;
-  border: 2px solid #e8ebff;
+  border: 2px solid #ffe8e8;
   transition: all 0.3s ease;
 }
 
 .statusCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 8px 20px rgba(216, 44, 32, 0.15);
 }
 
 .statusLabel {
@@ -99,7 +136,7 @@
 .statusValue {
   font-size: 36px;
   font-weight: 800;
-  color: #667eea;
+  color: #D82C20;
 }
 
 .alert {
@@ -199,14 +236,14 @@
 }
 
 .btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
   color: white;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 2px 8px rgba(216, 44, 32, 0.3);
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 16px rgba(216, 44, 32, 0.4);
 }
 
 .btnSecondary {
@@ -241,7 +278,7 @@
 }
 
 .testResults th {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
   color: white;
   font-weight: 700;
   font-size: 13px;
@@ -262,22 +299,28 @@
 }
 
 .practice {
-  background: linear-gradient(135deg, #f8f9ff 0%, #e8ebff 100%);
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
   border-radius: 12px;
   padding: 28px;
-  border-top: 4px solid #667eea;
+  border-top: 4px solid #D82C20;
   transition: all 0.3s ease;
 }
 
 .practice:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 8px 20px rgba(216, 44, 32, 0.15);
 }
 
 .practiceIcon {
-  font-size: 40px;
+  width: 40px;
+  height: 40px;
   margin-bottom: 16px;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
+  border-radius: 10px;
+  color: white;
 }
 
 .practice h3 {

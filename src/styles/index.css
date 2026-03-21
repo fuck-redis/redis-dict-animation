@@ -5,9 +5,9 @@
 }
 
 :root {
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --primary-color: #667eea;
-  --primary-dark: #764ba2;
+  --primary-gradient: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
+  --primary-color: #D82C20;
+  --primary-dark: #B22618;
   --success-color: #4caf50;
   --warning-color: #ff9800;
   --error-color: #f44336;
@@ -34,7 +34,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-primary);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
   line-height: 1.6;
 }
 
@@ -67,21 +67,21 @@ input, select, textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #D82C20 0%, #B22618 100%);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #764ba2;
+  background: #B22618;
 }
 
 /* Selection Color */
 ::selection {
-  background: #667eea;
+  background: #D82C20;
   color: white;
 }
 
 ::-moz-selection {
-  background: #667eea;
+  background: #D82C20;
   color: white;
 }

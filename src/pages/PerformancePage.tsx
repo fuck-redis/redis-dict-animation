@@ -1,15 +1,25 @@
 /**
  * 性能分析页面
+ * 深入分析Redis Dict的性能特征，展示负载因子与查询效率的关系
  */
 
 import React, { useState, useMemo } from 'react';
-import { BarChart3, TrendingUp, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { BarChart3, TrendingUp, AlertTriangle, CheckCircle2, Zap, Shield, Database, Target } from 'lucide-react';
 import { useDict } from '@/hooks/useDict';
+import { InlineVideo } from '@/components/video';
+import { LoadFactorImpact, OptimizationTips, BenchmarkDemo, ScenarioComparison, PerformanceMetricsCards, LoadFactorThresholds, BenchmarkRunAnimation, ScenarioComparisonBars } from '@/remotion/compositions/performance';
 import styles from './PerformancePage.module.css';
+
+interface PerformanceResult {
+  operations: number;
+  insertTime: number;
+  lookupTime: number;
+  deleteTime: number;
+}
 
 export const PerformancePage: React.FC = () => {
   const { dict, executeOperation } = useDict(8, 'siphash');
-  const [testResults, setTestResults] = useState<any[]>([]);
+  const [testResults, setTestResults] = useState<PerformanceResult[]>([]);
   
   // 运行性能测试
   const runPerformanceTest = (operationCount: number) => {
@@ -63,16 +73,24 @@ export const PerformancePage: React.FC = () => {
       </div>
 
       <div className={styles.content}>
-        {/* 当前状态 */}
+        {/* 性能概述 */}
         <section className={styles.section}>
-          <h2>当前字典状态</h2>
+          <h2>
+            <BarChart3 size={24} />
+            性能关键指标
+          </h2>
+          <p className={styles.intro}>
+            Redis Dict 的性能主要取决于<strong>负载因子（Load Factor）</strong>——
+            已使用槽位数与总槽位数的比率。这个比率直接决定了哈希冲突的概率，
+            进而影响每次查找需要遍历的链表长度。
+          </p>
           <div className={styles.statusGrid}>
             <div className={styles.statusCard}>
               <div className={styles.statusLabel}>哈希表大小</div>
               <div className={styles.statusValue}>{dict.ht[0].size}</div>
             </div>
             <div className={styles.statusCard}>
-              <div className={styles.statusLabel}>已使用</div>
+              <div className={styles.statusLabel}>已使用槽位</div>
               <div className={styles.statusValue}>{dict.ht[0].used}</div>
             </div>
             <div className={styles.statusCard}>
@@ -86,7 +104,18 @@ export const PerformancePage: React.FC = () => {
               <div className={styles.statusValue}>{dict.stats.maxChainLength}</div>
             </div>
           </div>
-          
+
+          <div style={{ marginTop: '24px' }}>
+            <InlineVideo
+              component={PerformanceMetricsCards}
+              durationInFrames={1200}
+              width={640}
+              height={360}
+              title="性能指标详解"
+              loop={true}
+            />
+          </div>
+
           <div className={styles.alert} style={{ borderColor: loadFactorStatus.color }}>
             <loadFactorStatus.icon size={24} color={loadFactorStatus.color} />
             <div>
@@ -95,12 +124,26 @@ export const PerformancePage: React.FC = () => {
           </div>
         </section>
 
-        {/* 负载因子影响 */}
+        {/* 负载因子影响 - 配合视频 */}
         <section className={styles.section}>
           <h2>
             <TrendingUp size={24} />
             负载因子对性能的影响
           </h2>
+          <p className={styles.intro}>
+            负载因子是哈希表性能的核心指标。当负载因子升高时，冲突概率呈指数增长，
+            导致查找性能急剧下降。下面通过动画演示这一过程：
+          </p>
+
+          <InlineVideo
+            component={LoadFactorImpact}
+            durationInFrames={1500}
+            width={640}
+            height={360}
+            title="负载因子对性能的影响"
+            loop={true}
+          />
+
           <div className={styles.impactTable}>
             <table>
               <thead>
@@ -143,6 +186,22 @@ export const PerformancePage: React.FC = () => {
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          <div className={styles.keyInsight}>
+            <strong>关键洞察：</strong>当负载因子超过 1.0 时，哈希表会发生过载，
+            此时每个桶可能存储多个键值对，查找需要遍历链表，性能退化明显。
+          </div>
+
+          <div style={{ marginTop: '24px' }}>
+            <InlineVideo
+              component={LoadFactorThresholds}
+              durationInFrames={1500}
+              width={640}
+              height={360}
+              title="负载因子阈值详解"
+              loop={true}
+            />
           </div>
         </section>
 
@@ -192,52 +251,102 @@ export const PerformancePage: React.FC = () => {
               </table>
             </div>
           )}
+
+          {/* 嵌入式视频：基准测试演示 */}
+          <div className={styles.inlineVideoWrapper}>
+            <InlineVideo
+              component={BenchmarkDemo}
+              durationInFrames={450}
+              width={640}
+              height={360}
+              title="性能基准测试演示"
+            />
+          </div>
+
+          <div style={{ marginTop: '24px' }}>
+            <InlineVideo
+              component={BenchmarkRunAnimation}
+              durationInFrames={1800}
+              width={640}
+              height={360}
+              title="基准测试运行动画"
+              loop={true}
+            />
+          </div>
         </section>
 
-        {/* 优化建议 */}
+        {/* 优化建议 - 配合视频 */}
         <section className={styles.section}>
-          <h2>优化最佳实践</h2>
+          <h2>
+            <Zap size={24} />
+            性能优化最佳实践
+          </h2>
+          <p className={styles.intro}>
+            基于负载因子原理，以下是确保 Redis Dict 高性能运行的关键策略：
+          </p>
+
+          <InlineVideo
+            component={OptimizationTips}
+            durationInFrames={1650}
+            width={640}
+            height={360}
+            title="性能优化建议"
+            loop={true}
+          />
+
           <div className={styles.practices}>
             <div className={styles.practice}>
-              <div className={styles.practiceIcon}>🎯</div>
+              <div className={styles.practiceIcon}>
+                <Target size={20} />
+              </div>
               <h3>合理设置初始大小</h3>
               <p>根据预期数据量设置初始大小，避免频繁rehash。通常设置为预期量的1.5-2倍。</p>
               <code>initialSize = nextPower(expectedCount * 2)</code>
             </div>
-            
+
             <div className={styles.practice}>
-              <div className={styles.practiceIcon}>⚖️</div>
-              <h3>监控负载因子</h3>
-              <p>定期检查负载因子，在达到0.75时开始准备rehash，不要等到超过1.0。</p>
-              <code>if (loadFactor {'>'} 0.75) prepareRehash()</code>
-            </div>
-            
-            <div className={styles.practice}>
-              <div className={styles.practiceIcon}>🔄</div>
-              <h3>利用渐进式Rehash</h3>
-              <p>Redis的渐进式rehash确保了无阻塞操作，但在高负载时可能需要调整批量大小。</p>
-              <code>rehashBatchSize = min(used / 100, 100)</code>
-            </div>
-            
-            <div className={styles.practice}>
-              <div className={styles.practiceIcon}>🔐</div>
+              <div className={styles.practiceIcon}>
+                <Shield size={20} />
+              </div>
               <h3>使用安全哈希函数</h3>
               <p>生产环境必须使用SipHash等抗攻击哈希函数，防止哈希洪水攻击。</p>
               <code>hashFunc = SipHash // 防御恶意输入</code>
             </div>
-            
+
             <div className={styles.practice}>
-              <div className={styles.practiceIcon}>📊</div>
-              <h3>定期清理过期数据</h3>
-              <p>及时清理不再使用的键，避免哈希表无限增长，保持合理的负载因子。</p>
-              <code>expireUnusedKeys() // 定期执行</code>
+              <div className={styles.practiceIcon}>
+                <TrendingUp size={20} />
+              </div>
+              <h3>监控负载因子</h3>
+              <p>定期检查负载因子，在达到0.75时开始准备rehash，不要等到超过1.0。</p>
+              <code>if (loadFactor {'>'} 0.75) prepareRehash()</code>
             </div>
-            
+
             <div className={styles.practice}>
-              <div className={styles.practiceIcon}>⚡</div>
+              <div className={styles.practiceIcon}>
+                <Database size={20} />
+              </div>
+              <h3>利用渐进式Rehash</h3>
+              <p>Redis的渐进式rehash确保了无阻塞操作，但在高负载时可能需要调整批量大小。</p>
+              <code>rehashBatchSize = min(used / 100, 100)</code>
+            </div>
+
+            <div className={styles.practice}>
+              <div className={styles.practiceIcon}>
+                <AlertTriangle size={20} />
+              </div>
               <h3>避免大键值对</h3>
               <p>过大的value会影响内存和rehash性能，考虑拆分或使用其他数据结构。</p>
               <code>maxValueSize = 10KB // 建议上限</code>
+            </div>
+
+            <div className={styles.practice}>
+              <div className={styles.practiceIcon}>
+                <CheckCircle2 size={20} />
+              </div>
+              <h3>定期清理过期数据</h3>
+              <p>及时清理不再使用的键，避免哈希表无限增长，保持合理的负载因子。</p>
+              <code>expireUnusedKeys() // 定期执行</code>
             </div>
           </div>
         </section>
@@ -266,6 +375,28 @@ export const PerformancePage: React.FC = () => {
               <div className={styles.comparisonBar} style={{ width: '100%', background: '#f44336' }} />
               <span>平均查找: 2.5+次</span>
             </div>
+          </div>
+
+          {/* 嵌入式视频：场景性能对比 */}
+          <div className={styles.inlineVideoWrapper}>
+            <InlineVideo
+              component={ScenarioComparison}
+              durationInFrames={600}
+              width={640}
+              height={360}
+              title="不同负载场景性能对比"
+            />
+          </div>
+
+          <div style={{ marginTop: '24px' }}>
+            <InlineVideo
+              component={ScenarioComparisonBars}
+              durationInFrames={1500}
+              width={640}
+              height={360}
+              title="场景对比条形图"
+              loop={true}
+            />
           </div>
         </section>
       </div>
