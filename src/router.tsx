@@ -2,7 +2,7 @@
  * 路由配置
  */
 
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
 import { ConceptPage } from './pages/ConceptPage';
 import { PlaygroundPage } from './pages/PlaygroundPage';
@@ -12,7 +12,7 @@ import { PerformancePage } from './pages/PerformancePage';
 import { IteratorPage } from './pages/IteratorPage';
 import { TutorialPage } from './pages/TutorialPage';
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: '/',
     element: <Layout />,
