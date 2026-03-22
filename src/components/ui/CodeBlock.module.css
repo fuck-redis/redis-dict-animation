@@ -1,0 +1,130 @@
+/* CodeBlock 样式 - 基于 Atom Dark 主题 */
+
+.codeBlock {
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.codeBlock pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+.codeBlock code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  background: transparent;
+  white-space: pre;
+}
+
+/* 行号样式 */
+.lineNumbers {
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.lineNumbers td {
+  padding: 0 12px 0 0;
+  vertical-align: top;
+}
+
+.lineNumber {
+  color: #4a4a4a;
+  text-align: right;
+  user-select: none;
+  min-width: 40px;
+}
+
+.lineContent {
+  color: #d4d4d4;
+  white-space: pre;
+}
+
+/* Prism.js 语法高亮主题 - Atom Dark inspired */
+.codeBlock :global(.token.comment),
+.codeBlock :global(.token.prolog),
+.codeBlock :global(.token.doctype),
+.codeBlock :global(.token.cdata) {
+  color: #5c6370;
+  font-style: italic;
+}
+
+.codeBlock :global(.token.punctuation) {
+  color: #abb2bf;
+}
+
+.codeBlock :global(.token.property),
+.codeBlock :global(.token.tag),
+.codeBlock :global(.token.boolean),
+.codeBlock :global(.token.number),
+.codeBlock :global(.token.constant),
+.codeBlock :global(.token.symbol),
+.codeBlock :global(.token.deleted) {
+  color: #e06c75;
+}
+
+.codeBlock :global(.token.selector),
+.codeBlock :global(.token.attr-name),
+.codeBlock :global(.token.string),
+.codeBlock :global(.token.char),
+.codeBlock :global(.token.builtin),
+.codeBlock :global(.token.inserted) {
+  color: #98c379;
+}
+
+.codeBlock :global(.token.operator),
+.codeBlock :global(.token.entity),
+.codeBlock :global(.token.url),
+.codeBlock :global(.language-css .token.string),
+.codeBlock :global(.style .token.string) {
+  color: #56b6c2;
+}
+
+.codeBlock :global(.token.atrule),
+.codeBlock :global(.token.attr-value),
+.codeBlock :global(.token.keyword) {
+  color: #c678dd;
+}
+
+.codeBlock :global(.token.function),
+.codeBlock :global(.token.class-name) {
+  color: #61afef;
+}
+
+.codeBlock :global(.token.regex),
+.codeBlock :global(.token.important),
+.codeBlock :global(.token.variable) {
+  color: #c678dd;
+}
+
+.codeBlock :global(.token.important),
+.codeBlock :global(.token.bold) {
+  font-weight: bold;
+}
+
+.codeBlock :global(.token.italic) {
+  font-style: italic;
+}
+
+.codeBlock :global(.token.entity) {
+  cursor: help;
+}
+
+/* C 语言特定 */
+.codeBlock :global(.token.macro-name),
+.codeBlock :global(.token.directive) {
+  color: #e06c75;
+}
+
+.codeBlock :global(.token.include),
+.codeBlock :global(.token.preprocessor) {
+  color: #c678dd;
+}

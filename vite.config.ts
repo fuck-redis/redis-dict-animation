@@ -10,8 +10,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  base: './',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+  },
   server: {
-    port: 3000,
-    open: true,
+    port: 46147,
+    open: false,
   },
 });
